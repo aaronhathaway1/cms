@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Document } from '../documents.model';
+import { Document } from '../document.model';
 
 @Component({
   selector: 'cms-document-detail',
