@@ -4,9 +4,9 @@
       <h4 class="title margin-left-right">{{document?.name}}</h4>
       <div class="row pull-right margin-left-right">
         <div class="btn-toolbar">
-          <a class="btn btn-primary">View</a>
-          <a class="btn btn-info">Edit</a>
-          <a class="btn btn-danger">Delete</a>
+          <a class="btn btn-primary" (click)="onView()">View</a>
+          <a class="btn btn-info" (click)="onEditDocument()">Edit</a>
+          <a class="btn btn-danger" (click)="onDelete()">Delete</a>
         </div>
       </div>
     </div>

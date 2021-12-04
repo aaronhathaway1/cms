@@ -7,8 +7,8 @@
             <img [src]="contact?.imageUrl" alt="{{ contact?.name }}" class="img-responsive" *ngIf="contact?.imageUrl">
           </div>
           <div class="pull-right btn-toolbar">
-            <a class="btn btn-primary">Edit</a>
-            <a class="btn btn-danger">Delete</a>
+            <a class="btn btn-primary" (click)="onEdit()">Edit</a>
+            <a class="btn btn-danger" (click)="onDelete()">Delete</a>
           </div>
         </div>
         <div class="panel-body">

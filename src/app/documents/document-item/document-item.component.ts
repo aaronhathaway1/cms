@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { Document } from '../document.model';
 
@@ -10,13 +10,10 @@ import { Document } from '../document.model';
 export class DocumentItemComponent implements OnInit {
 
   @Input() document: Document;
-  @Output() documentSelected = new EventEmitter<void>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
-
 
 }

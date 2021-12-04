@@ -35,5 +35,4 @@ export class MessageService {
     this.messageChangedEvent.emit(this.messages.slice());
   }
 
-
 }
