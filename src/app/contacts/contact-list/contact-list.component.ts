@@ -34,7 +34,7 @@ export class ContactListComponent implements OnInit, OnDestroy {
   }
 
   onNewContact() {
-    this.contactService.addContact(this.defaultContact);
+    // this.contactService.addContact(this.defaultContact);
     this.router.navigate(['new'], { relativeTo: this.route });
   }
 

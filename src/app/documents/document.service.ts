@@ -9,8 +9,10 @@ import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
 })
 export class DocumentService {
 
+
+  documentsChanged = new Subject<Document[]>();
   documentSelectedEvent = new EventEmitter<Document>();
-  documentChangedEvent = new Subject<Document[]>();
+  // documentChangedEvent = new Subject<Document[]>();
 
   private documents: Document[];
   private maxDocId: number;
@@ -36,22 +38,6 @@ export class DocumentService {
     return null;
   }
 
-  deleteDocument(document: Document) {
-
-    console.log(document);
-
-    if (!document) {
-      return;
-    }
-    const pos = this.documents.indexOf(document);
-
-    if (pos < 0) {
-      return;
-    }
-    this.documents.splice(pos, 1);
-    this.documentChangedEvent.next(this.documents.slice());
-  }
-
   getMaxDocId(): number {
     this.maxDocId = 0;
 
@@ -67,6 +53,31 @@ export class DocumentService {
     return this.maxDocId
   }
 
+  updateDocument(index: string, newDocument: Document) {
+    if (!index || !newDocument) {
+      return;
+    }
+
+    // Getting the old document
+    const oldDocument = this.getDocument(index);
+
+    //Finding the position in the documents array of the old document
+    // Because id and position do not correspond
+    const position = this.documents.indexOf(oldDocument);
+
+    //Assigning the id of the old document to the new one.
+    newDocument.id = index;
+
+    //Assigning the new document to the position of the old
+    // Essentially overwriting the now outdated array
+    this.documents[position] = newDocument;
+    console.log(position);
+    console.log(1);
+
+    //Telling emitting an event with a copy of the documents array
+    this.documentsChanged.next(this.documents.slice());
+  }
+
   addDocument(newDocument: Document) {
     if (!newDocument) {
       return;
@@ -75,26 +86,21 @@ export class DocumentService {
     this.maxDocId++;
     newDocument.id = this.maxDocId.toString();
     this.documents.push(newDocument);
-    this.documentsClone = this.documents.slice();
-    this.documentChangedEvent.next(this.documentsClone);
-
+    this.documentsChanged.next(this.documents.slice());
   }
 
-  updateDocument(originalDocument: Document, newDocument: Document) {
-    if (!originalDocument || !newDocument) {
+  deleteDocument(document: Document) {
+
+    if (!document) {
       return;
     }
+    const pos = this.documents.indexOf(document);
 
-    this.pos = this.documents.indexOf(originalDocument);
-    if (this.pos < 0) {
+    if (pos < 0) {
       return;
     }
-
-    newDocument.id = originalDocument.id;
-    this.documents[this.pos] = newDocument;
-    this.documentsClone = this.documents.slice();
-    this.documentChangedEvent.next(this.documentsClone);
+    this.documents.splice(pos, 1);
+    this.documentsChanged.next(this.documents.slice());
   }
-
 }
 
